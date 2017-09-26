@@ -1,0 +1,54 @@
+<html>
+    <head>
+        <title>Book</title>
+        <style>
+            body{
+                display: flex;
+            }
+            #right{
+                position: relative;
+                left: 20em;
+            }
+            #text{
+                height: 20em;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div>
+        <h1>{{book.title}}</h1>
+        <p>author: {{book.author.name}}</p>
+
+        Reviews:
+            {% for review in reviews %}
+                <p>-------------------------------------</p>
+                {% if request.session.user_id == review.user.id %}
+                    <a href="{{review.book.id}}/delete_review/{{review.id}}">delete review</a>
+                {% endif %}
+                <p>Rating: {{review.rating}}</p>
+                <p><a href='/user/{{review.user.id}}'>{{review.user.first_name}}</a> said:</p>
+                <p>{{review.text}}</p>
+                <p>Posted on {{review.created_at}}</p>
+            {% endfor %}
+        </div>
+
+        <div id='right'>
+            <p><a href='/books'>Home</a> <a href='/logout'>Logout</a></p>
+            Add a review:
+            <form action='add_review'>
+                <input type='textarea' name='text' id='text'><br>
+                Rating: 
+                <select name='rating'>
+                    <option value='1'>1</option>
+                    <option value='2'>2</option>
+                    <option value='3'>3</option>
+                    <option value='4'>4</option>
+                    <option value='5'>5</option>
+                </select>
+                <input type='hidden' name='book_id' value='{{book.id}}'>
+                <input type='submit' value='Submit Review'>
+            </form>
+        </div>
+    </body>
+</html>

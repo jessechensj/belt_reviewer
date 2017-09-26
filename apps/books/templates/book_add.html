@@ -1,0 +1,35 @@
+<html>
+    <head>
+        <title>Add a Book and Review</title>
+    </head>
+
+    <body>
+        <p><a href='/books'>Home</a> <a href='/logout'>Logout</a></p><br>
+        
+        <form action='create'>
+            Add a new Book title and a Review:<br>
+            Book title: <input type='text' name='title'><br>
+            Author: <br>
+            Add a new author:    
+                <input type='text' name='author_text'><br>
+            {% if authors %}    
+                Choose from the list:
+                <select name='author_dropdown'>
+                    {% for author in authors %}
+                        <option value='{{author.name}}'>{{author.name}}</option>
+                    {% endfor %}
+                </select><br>
+            {% endif %}    
+            Review: <input type='text' name='review'><br>
+            Rating: 
+            <select name='rating'>
+                <option value='1'>1</option>
+                <option value='2'>2</option>
+                <option value='3'>3</option>
+                <option value='4'>4</option>
+                <option value='5'>5</option>
+            </select>
+            <input type='submit' value='Add Book and Review'>
+        </form>
+    </body>
+</html>

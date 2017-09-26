@@ -1,0 +1,36 @@
+<html>
+    <head>
+        <title>Book</title>
+        <style>
+            body{
+                display: flex;
+            }
+            #right{
+                position: relative;
+                left: 20em;
+            }
+        </style>
+    </head>
+    <body>
+        <div>
+            <h1>Welcome, {{request.session.first_name}}!</h1>
+            <h1>Most recent book reviews:</h1>
+            {% for review in reviews %}
+                <p>--------------------------------------------------</p>
+                <h2><a href="/book/{{review.book.id}}">{{review.book.title}}</a></h2>
+                <h2>{{review.book.author.name}}</h2>
+                <p>Rating: {{review.rating}}</p>
+                <p><a href='/user/{{review.user.id}}'>{{review.user.first_name}}</a> said:</p>
+                <p>{{review.text}}</p>
+                <p>Posted on {{review.created_at}}</p>
+            {% endfor %}
+        </div>
+        <div id="right">
+            <p><a href='/add'>Add book and review</a> <a href='/logout'>Logout</a></p>
+            <h1>Other books with reviews:</h1>
+            {% for book in books %}
+                <a href="/book/{{book.id}}">{{book.title}}</a><br>
+            {% endfor %}
+        </div>
+    </body>
+</html>
